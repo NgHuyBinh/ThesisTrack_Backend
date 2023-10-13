@@ -28,7 +28,7 @@ public class Semester {
     private String schoolYear;
 
     @NotNull(message = "Không để trống học kỳ")
-    private Integer semester;
+    private Integer semester; 
 
     @NotNull(message = "Không để trống ngày bắt đầu")
     private LocalDate startDate;

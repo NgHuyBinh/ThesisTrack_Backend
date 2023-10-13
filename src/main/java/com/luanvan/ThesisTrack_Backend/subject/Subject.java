@@ -2,6 +2,7 @@ package com.luanvan.ThesisTrack_Backend.subject;
 
 import com.luanvan.ThesisTrack_Backend.faculty.Faculty;
 //import com.luanvan.ThesisTrack_Backend.semester.Semester;
+import com.luanvan.ThesisTrack_Backend.period.Period;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,10 +26,18 @@ public class Subject {
     @Column(unique = true)
     private String code;
 
+    // thêm số tín chỉ cho môn học
+    private Integer credit; 
+
     private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "period_id")
+    private Period period;
 
     @ManyToOne
     @JoinColumn(name = "faculty_id")
     private Faculty faculty;
+
 
 }

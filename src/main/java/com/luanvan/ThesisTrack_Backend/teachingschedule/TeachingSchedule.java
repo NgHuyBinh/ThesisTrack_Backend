@@ -1,6 +1,7 @@
-package com.luanvan.ThesisTrack_Backend.week;
+package com.luanvan.ThesisTrack_Backend.teachingschedule;
 
-import com.luanvan.ThesisTrack_Backend.semester.Semester;
+import com.luanvan.ThesisTrack_Backend.subject.Subject;
+import com.luanvan.ThesisTrack_Backend.teacher.Teacher;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+// import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,20 +18,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-// bảng tuần  có ngày bắt đầu và ngày kết thúc tuần có kết nối với bảng học kỳ
 
-public class Week {
+public class TeachingSchedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
-    private String startWeek;
 
-    private String endWeek;
-
-    // kết nối bảng học kỳ
     @ManyToOne
-    @JoinColumn(name = "semester_id")
-    private Semester semester;
+    @JoinColumn(name = "teacher_id")
+    private Teacher teacher;
+
+    // kết nối bảng môn học
+    @ManyToOne
+    // @OneToMany 
+    @JoinColumn(name = "subject_id")
+    private Subject subject;
+
 
 }
