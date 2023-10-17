@@ -1,15 +1,17 @@
 package com.luanvan.ThesisTrack_Backend.registertopic;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.luanvan.ThesisTrack_Backend.exception.AlreadyExistsException;
+import com.luanvan.ThesisTrack_Backend.exception.InvalidValueException;
 import com.luanvan.ThesisTrack_Backend.exception.NotFoundException;
-// import com.luanvan.ThesisTrack_Backend.semester.Semester;
+import com.luanvan.ThesisTrack_Backend.semester.Semester;
 import com.luanvan.ThesisTrack_Backend.semester.SemesterRepository;
-// import com.luanvan.ThesisTrack_Backend.student.Student;
+import com.luanvan.ThesisTrack_Backend.student.Student;
 import com.luanvan.ThesisTrack_Backend.student.StudentRepository;
 import com.luanvan.ThesisTrack_Backend.topic.Topic;
 import com.luanvan.ThesisTrack_Backend.topic.TopicRepository;
@@ -30,22 +32,25 @@ public class RegisterService {
     }
 
     public void registerTopic(RegisterTopic registerTopic) {
+
+        System.out.println("abc");
         //Kiểm tra id sinh viên tồn tại không
-        studentRepository.findById(registerTopic.getStudent().getId()).orElseThrow(() -> new NotFoundException("Không tồn tại sinh viên này"));
-        Optional<Topic> topic = topicRepository.findById(registerTopic.getTopic().getId());
-        if(topic.isPresent()) {
-            if(registerTopic.getStatus() == 0) {
-                //Kiểm tra nếu chưa có sinh viên nào đăng ký đề tài do giảng viên đề ra thì set
-                registerTopic.setStatus(1);
-            }else {
-                //ngược lại đăng ký rồi thì đảy ra exception
-                throw new AlreadyExistsException("Đề tài này sinh viên đã đăng ký rồi");
-            }
+        Student student = studentRepository.findById(registerTopic.getStudent().getId()).orElseThrow(() -> new NotFoundException("Không tồn tại sinh viên này"));
+        Semester semester = semesterRepository.findSesmesterByCurrentDateBetweenStartDateAndEndDate(LocalDate.now())
+                .orElseThrow(() -> new NotFoundException("Không có học kỳ phù hợp với ngày hiện tại"));
+        registerTopic.setSemester(semester);
+        if(registerRepository.findByStudentIdAndSemesterId(student.getId(),semester.getId()).isPresent()) {
+            throw new AlreadyExistsException("Sinh viên đã đăng ký đề tài trong học kỳ này rồi");
         }
-        semesterRepository.findById(registerTopic.getSemester().getId())
-        .orElseThrow(() -> new NotFoundException("Không tồn tại học kỳ này"));
+        if(registerTopic.getTopic() != null) {
+            //Kiểm tra đề tài này đã tồn tại trong CSDL chưa
+            if(registerRepository.findByTopicIdAndSemesterId(registerTopic.getTopic().getId(),semester.getId()).isPresent()) {
+                throw new AlreadyExistsException("Đề tài này đã được đăng ký bởi sinh viên khác rồi");
+            } 
+        }
+        
         //Kiểm tra nếu sinh viên không chọn đề tài giảng viên đưa ra thì phải tự đề xuất đề tài mình
-        if(!topic.isPresent() ) {
+        if(registerTopic.getTopic()==null ) {
             if(registerTopic.getTopicName().equals("")) {
                 throw new NotFoundException("Không được bỏ trống tên đề tài");
             }else{
@@ -56,6 +61,8 @@ public class RegisterService {
             }
             
         }
+
         registerRepository.save(registerTopic);
     }
 }
+

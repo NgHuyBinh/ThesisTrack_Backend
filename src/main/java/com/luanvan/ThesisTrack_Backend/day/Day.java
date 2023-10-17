@@ -25,7 +25,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 
-// bảng thứ trong tuần t2 t3 t4 t5  t6 t7 cn
+
+// bảng ngày trong tuần t2 t3 t4 t5  t6 t7 cn
 public class Day {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,12 +35,10 @@ public class Day {
     @NotNull(message = "Không để trống thứ trong tuần")
     private String day;
 
-    
-
-    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    @JoinTable(name = "day_week"
-        ,joinColumns = @JoinColumn(name = "week_id",referencedColumnName = "id") 
-        ,inverseJoinColumns  = @JoinColumn(name = "day_id",referencedColumnName = "id") 
-    )
-    private List<Week> week = new ArrayList<>();
+    // @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    // @JoinTable(name = "day_week"
+    //     ,joinColumns = @JoinColumn(name = "week_id",referencedColumnName = "id") 
+    //     ,inverseJoinColumns  = @JoinColumn(name = "day_id",referencedColumnName = "id") 
+    // )
+    // private List<Week> week = new ArrayList<>();
 }

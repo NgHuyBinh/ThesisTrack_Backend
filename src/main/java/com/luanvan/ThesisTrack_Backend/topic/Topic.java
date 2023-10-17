@@ -1,4 +1,5 @@
 package com.luanvan.ThesisTrack_Backend.topic;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.luanvan.ThesisTrack_Backend.subject.Subject;
 import com.luanvan.ThesisTrack_Backend.teacher.Teacher;
 import jakarta.persistence.*;
@@ -21,14 +22,18 @@ public class Topic {
     private String name;
 
     // khóa ngoại với bảng học phần
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "subject_id", referencedColumnName = "id")
     private Subject subject;
 
      //  khóa ngoại với bảng giảng viên
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "teacher_id", referencedColumnName = "id")
     private Teacher teacher;
+
     //Biến kiểm tra xem đề tài đăng ký chưa?
-    private Boolean status;
+    // private Boolean status;
+    
 }

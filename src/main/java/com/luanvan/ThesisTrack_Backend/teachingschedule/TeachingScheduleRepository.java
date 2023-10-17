@@ -1,17 +1,17 @@
-package com.luanvan.ThesisTrack_Backend.teachingschedule;
+// package com.luanvan.ThesisTrack_Backend.teachingschedule;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+// import org.springframework.data.jpa.repository.JpaRepository;
+// import org.springframework.stereotype.Repository;
 
-import com.luanvan.ThesisTrack_Backend.subject.Subject;
-import com.luanvan.ThesisTrack_Backend.teacher.Teacher;
+// import com.luanvan.ThesisTrack_Backend.subject.Subject;
+// import com.luanvan.ThesisTrack_Backend.teacher.Teacher;
 
-import java.util.List;
+// import java.util.List;
 
-@Repository
-public interface TeachingScheduleRepository extends JpaRepository<TeachingSchedule, Integer> {
+// @Repository
+// public interface TeachingScheduleRepository extends JpaRepository<TeachingSchedule, Integer> {
 
-    List<TeachingSchedule> findByTeacher(Teacher teacher);
+//     List<TeachingSchedule> findByTeacher(Teacher teacher);
 
-    List<TeachingSchedule> findBySubject(Subject subject);
-}
+//     List<TeachingSchedule> findBySubject(Subject subject);
+// }

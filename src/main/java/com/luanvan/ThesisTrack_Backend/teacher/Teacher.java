@@ -2,6 +2,7 @@ package com.luanvan.ThesisTrack_Backend.teacher;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.luanvan.ThesisTrack_Backend.faculty.Faculty;
 import com.luanvan.ThesisTrack_Backend.user.User;
 
@@ -63,6 +64,7 @@ public class Teacher {
     private Integer gender;
     
     @OneToOne
+    @JsonIgnore
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
     

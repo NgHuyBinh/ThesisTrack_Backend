@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 // import org.springframework.boot.autoconfigure.kafka.KafkaProperties.Admin;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.luanvan.ThesisTrack_Backend.faculty.Faculty;
 // import com.luanvan.ThesisTrack_Backend.subject.Subject;
 import com.luanvan.ThesisTrack_Backend.teacher.Teacher;
@@ -76,6 +77,7 @@ public class Student {
     // 1 HV thuoc 1 khoa 1 khoa co nhieu SV 
     private Faculty faculty;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;

@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("api/v1/subjects")
+@CrossOrigin(origins = {"http://localhost:4200","http://localhost:4401"})
 public class SubjectResource {
 
     @Autowired

@@ -16,7 +16,7 @@ import io.jsonwebtoken.security.Keys;
 public class JwtGenerator {
     
     //private static final KeyPair keyPair = Keys.keyPairFor(SignatureAlgorithm.RS256);
-	private static final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS512); //kiểu mã hóa
+	private static final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
 	
 	public String generateToken(Authentication authentication) {
 		String username = authentication.getName();

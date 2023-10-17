@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("api/v1/student")
+// , "http://localhost:4201"
+@CrossOrigin(origins = {"http://localhost:4200","http://localhost:4401"})
 public class StudentResource {
     
     @Autowired
@@ -19,6 +22,8 @@ public class StudentResource {
 
     @GetMapping
     public ResponseEntity<StudentResponseDTO> getStudentByNoStudent(@RequestParam("numberStudent") String numberStudent) {
+       
+//        System.out.print(numberStudent);
         Optional<Student> student = studentService.getStudentByNoStudent(numberStudent);
         
         if(student.isPresent()) {
@@ -32,10 +37,11 @@ public class StudentResource {
             student.get().getMajor(),
             student.get().getBirthday(),
             student.get().getGender(),
-            student.get().getClassroom()) ;
+            student.get().getClassroom(),student.get().getTeacher()) ;
+
             return ResponseEntity.status(HttpStatus.OK).body(studentResponseDTO);
         }else {
             return ResponseEntity.notFound().build();
         }
     }
-}
+}   

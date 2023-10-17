@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/topics")
+@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:4201"})
 public class TopicResource {
 
     @Autowired
@@ -24,8 +25,8 @@ public class TopicResource {
 
      @GetMapping("/teacher/{teacherId}")
      public ResponseEntity<List<Topic>> getTopicsByTeacher(@PathVariable Integer teacherId) {
-         List<Topic> topics = topicService.getAllTopics();
-         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(topics);
+         List<Topic> topics = topicService.getAllTopicsByTeacherId(teacherId);
+         return ResponseEntity.status(HttpStatus.OK).body(topics);
      }
 
      @PostMapping
@@ -34,10 +35,11 @@ public class TopicResource {
          return ResponseEntity.status(HttpStatus.CREATED).build();
      }
 
-     @DeleteMapping("/{topicId}")
-     public ResponseEntity<Void> deleteTopic(@PathVariable Integer topicId) {
-         topicService.deleteTopic(topicId);
-         return ResponseEntity.noContent().build();
-     }
+    @DeleteMapping("/{topicId}")
+    public ResponseEntity<Void> deleteTopic(@PathVariable Integer topicId) {
+        topicService.deleteTopic(topicId);
+        return ResponseEntity.noContent().build();
+    }
+    
 
 }

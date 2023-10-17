@@ -20,7 +20,8 @@ import com.luanvan.ThesisTrack_Backend.message.SuccessMessage;
 import jakarta.validation.Valid;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:4201"})
+
 @RequestMapping("api/v1/user")
 public class UserResource {
     

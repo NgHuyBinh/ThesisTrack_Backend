@@ -32,13 +32,13 @@ public class TopicService {
         this.teacherRepository = teacherRepository;
         this.subjectRepository = subjectRepository;
     }
-
-    public List<Topic> getTopicsByTeacher(Teacher teacher) {
-        return topicRepository.findByTeacher(teacher);
+    public List<Topic> getAllTopics() {
+        return  topicRepository.findAll();
     }
 
-    public List<Topic> getAllTopics() {
-        return topicRepository.findAll();
+    public List<Topic> getAllTopicsByTeacherId(Integer id) {
+
+        return topicRepository.findByTeacherId(id);
     }
 
     // kiểm tra subject tồn tại không, teacher đó tồn tại không, kiểm tra tên đó đã
@@ -57,7 +57,6 @@ public class TopicService {
             throw new NotFoundException("Không tồn tại học phần với id: " + topic.getTeacher().getId());
         }
 
-        // này tui làm theo youtube á kk
         // kiểm tra tên có trùng không
         Optional<Topic> existingTopic = topicRepository.findByName(topic.getName());
         if (existingTopic.isPresent()) {

@@ -32,13 +32,10 @@ public class RegisterTopic {
     @JoinColumn(name = "student_id")
     private Student student;
 
-    //Đăng ký đề tài nào
+    //Đăng ký đề tài nào //có 38 thì ko  có 46
     @ManyToOne(optional = true) // Có thể null để cho sinh viên tự đăng ký
     @JoinColumn(name="topic_id")
     private Topic topic;
-
-    //Học kỳ nào
-    @NotNull(message = "Học kỳ không được null")
     @ManyToOne
     @JoinColumn(name="semester_id")
     private Semester semester;
@@ -47,3 +44,5 @@ public class RegisterTopic {
     
     private Integer status = 0;
 }
+
+

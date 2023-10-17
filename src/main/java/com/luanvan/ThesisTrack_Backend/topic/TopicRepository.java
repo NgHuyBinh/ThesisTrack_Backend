@@ -13,4 +13,5 @@ public interface TopicRepository extends JpaRepository<Topic, Integer> {
      List<Topic> findByTeacher(Teacher teacher);
 
      Optional<Topic> findByName(String name);
+     List<Topic> findByTeacherId(Integer teacher_id);
 }
